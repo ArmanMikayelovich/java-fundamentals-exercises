@@ -94,7 +94,7 @@ public class HelloAnnotationsExerciseTest {
 
     @SneakyThrows
     private Class<? extends Annotation> getExerciseAnnotation() {
-        return Class.forName("com.bobocode.basics.Exercise")
+        return Class.forName("com.bobocode.basics.HelloAnnotationsExercise$Exercise")
                 .asSubclass(Annotation.class);
     }
 
