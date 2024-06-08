@@ -1,5 +1,7 @@
 package com.bobocode.fp;
 
+import java.util.function.Function;
+
 /**
  * An util class that provides a factory method for creating an instance of a {@link FunctionMap} filled with a list
  * of functions.
@@ -28,7 +30,16 @@ public class Functions {
     public static FunctionMap<Integer, Integer> intFunctionMap() {
         FunctionMap<Integer, Integer> intFunctionMap = new FunctionMap<>();
 
-        // todo: according to the javadoc add functions using lambda expression
+        Function<Integer, Integer> abs = Math::abs;
+        Function<Integer, Integer> sgn = x -> Double.valueOf(Math.signum((double) x)).intValue();
+        Function<Integer, Integer> increment = x -> ++x;
+        Function<Integer, Integer> decrement = x -> --x;
+        Function<Integer, Integer> square = x -> x * x;
+        intFunctionMap.addFunction("abs", abs);
+        intFunctionMap.addFunction("sgn", sgn);
+        intFunctionMap.addFunction("increment", increment);
+        intFunctionMap.addFunction("decrement", decrement);
+        intFunctionMap.addFunction("square", square);
 
         return intFunctionMap;
     }
