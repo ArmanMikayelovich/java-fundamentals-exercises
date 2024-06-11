@@ -1,7 +1,8 @@
 package com.bobocode.se;
 
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -16,15 +17,26 @@ public class FileReaders {
      * @return string that holds whole file content
      */
     public static String readWholeFile(String fileName) {
-        try (Scanner scanner = new Scanner(new File(fileName))) {
+
+        try (InputStream resourceAsStream = FileReaders.class.getClassLoader().getResourceAsStream(fileName);
+             Scanner scanner = new Scanner(resourceAsStream)) {
+
             StringBuilder stringBuilder = new StringBuilder();
             String s;
-            while ((s = scanner.nextLine()) != null) {
+            boolean isFirstLine = true;
+            while (scanner.hasNext() && (s = scanner.nextLine()) != null) {
+                if (!isFirstLine) {
+
+                    stringBuilder.append('\n');
+                }
+                isFirstLine = false;
                 stringBuilder.append(s);
             }
             return stringBuilder.toString();
 
         } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
